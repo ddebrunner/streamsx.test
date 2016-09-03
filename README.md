@@ -1,6 +1,6 @@
 # streamsx.test
 
-Utilities to allow testing of IBM Streams applications.
+Utilities to allow testing of IBM Streams applications, toolkits, operators and functions.
 
 ## Application testing
 
