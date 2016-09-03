@@ -12,6 +12,6 @@ Utilities to allow testing of IBM Streams applications, toolkits, operators and 
 
 The mock framework allows unit testing of Java primitive operators using standard Java unit test frameworks such as [JUnit](http://junit.org/junit4/).
 
-Samples of it use are provided in the Java package `com.ibm.streamsx.test.samples.javaprimitives.tests` with source code under `samples/java/src`. JUnit 4 is used as the test framework.
+Samples of it use are provided in the Java package `com.ibm.streamsx.test.samples.javaprimitives.tests` with source code under [samples/java/src](samples/java/src/com/ibm/streamsx/test/samples/javaprimitives). JUnit 4 is used as the test framework.
 
  
