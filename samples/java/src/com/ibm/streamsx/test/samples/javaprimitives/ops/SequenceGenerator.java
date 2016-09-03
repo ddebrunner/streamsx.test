@@ -23,6 +23,7 @@ import com.ibm.streams.operator.samples.patterns.ProcessTupleProducer;
  * The output schema must have a {@code int32} as the
  * first attribute.
  *
+ * @see com.ibm.streamsx.test.samples.javaprimitives.tests.SequenceGeneratorTest
  */
 @PrimitiveOperator
 @OutputPortSet

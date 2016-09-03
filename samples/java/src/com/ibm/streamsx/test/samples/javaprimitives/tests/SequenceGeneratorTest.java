@@ -58,8 +58,7 @@ public class SequenceGeneratorTest {
                 .addOperator(SequenceGenerator.class);
         
         // With a single output port
-        OutputPortDeclaration output = sequence
-                .addOutput("tuple<int32 seq>");
+        OutputPortDeclaration output = sequence.addOutput("tuple<int32 seq>");
               
         // Graph is now declared, create an executable version       
         JavaOperatorTester jot = new JavaOperatorTester();       
@@ -107,8 +106,7 @@ public class SequenceGeneratorTest {
                 .addOperator(SequenceGenerator.class);
         
         // With a single output port
-        OutputPortDeclaration output = sequence
-                .addOutput("tuple<int32 seq>");
+        OutputPortDeclaration output = sequence.addOutput("tuple<int32 seq>");
         
         // Set the parameter to a different number
         // from the default.
@@ -145,8 +143,7 @@ public class SequenceGeneratorTest {
                 .addOperator(SequenceGenerator.class);
         
         // With a single output port
-        OutputPortDeclaration output = sequence
-                .addOutput("tuple<int32 seq>");
+        OutputPortDeclaration output = sequence.addOutput("tuple<int32 seq>");
         
         // Set the parameter to a different number
         // from the default.
@@ -174,5 +171,48 @@ public class SequenceGeneratorTest {
         for (int i = 0; i < N; i++) {
         	assertEquals(i, tuples.get(i).getInt(0));
         }
+	}
+	
+	/**
+	 * Test the correct number of tuples are produced by default.
+	 * Uses the Java mock operator framework to invoke and
+	 * test a single invocation of {@link SequenceGenerator}.
+	 * 
+	 * <P>
+	 * This demonstrates using using
+	 * {@code com.ibm.streams.flow.javaprimitives.JavaTestableGraph}
+	 * utility methods to directly create a graph containing a single operator.
+	 * It performs the same test as {@link #testDefaultSequenceCount()}
+	 * but it creates the graph as a single operator graph.
+	 * </P>
+	 */
+	@Test
+	public void testSimpleDefaultSequenceCount() throws Exception {
+	
+		// Drive the graph generation from JavaOperatorTester
+		JavaOperatorTester jot = new JavaOperatorTester(); 
+
+        // Declare a SequenceGenerator operator
+        OperatorInvocation<SequenceGenerator> sequence = jot.singleOp(SequenceGenerator.class);
+        
+        // With a single output port
+        OutputPortDeclaration output = sequence.addOutput("tuple<int32 seq>");
+              
+        JavaTestableGraph tg = jot.tester(sequence);
+        
+        // Register a handler to count tuples and
+        // punctuation marks
+        StreamCounter<Tuple> counter = new StreamCounter<Tuple>();        
+        tg.registerStreamHandler(output, counter);
+        
+        // Execute the graph. SequenceGenerator submits
+        // a final marker after it has submitted the required
+        // number of tuples which will cause the graph to complete.
+        tg.executeToCompletion();
+        
+        // Verify the output (default is twenty tuples).
+        assertEquals(20, counter.getTupleCount());
+        assertEquals(1, counter.getMarkCount(Punctuation.WINDOW_MARKER));
+        assertEquals(1, counter.getMarkCount(Punctuation.FINAL_MARKER));
 	}
 }
