@@ -6,7 +6,7 @@ Utilities to allow testing of IBM Streams applications.
 
 * To be added.
 
-## Java Mock Framework
+## Java Mock Operator Framework
 
  * IBM Streams 4.1 documentation: [http://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.1.1/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/flow/declare/package-summary.html]
 
